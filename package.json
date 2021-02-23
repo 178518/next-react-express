@@ -1,0 +1,39 @@
+{
+  "name": "next-react-express",
+  "version": "1.0.0",
+  "description": "next-react-express",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "rimraf -rf dist && tsc --project tsconfig.json",
+    "start": "cross-env NODE_ENV=production PORT=8088 node dist/index.js"
+  },
+  "author": "yun.zhao",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.2",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.2",
+    "nodemon": "^1.19.4",
+    "typescript": "^3.4.5",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1"
+  },
+  "engines": {
+    "node": ">=v10.21.0"
+  }
+}

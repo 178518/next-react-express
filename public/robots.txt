@@ -1,0 +1,7 @@
+# Host: sec.xiaodun.com
+# Format:
+#       User-agent: <name of spider>
+#       Disallow: <nothing> | <path>
+# -----------------------------------------------------------------------------
+User-agent: *
+Allow: *

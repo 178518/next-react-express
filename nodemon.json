@@ -1,0 +1,5 @@
+{
+  "watch": ["server"],
+  "exec": "cross-env NODE_ENV=development NODE_OPTIONS=\"--inspect\" PORT=8088 ts-node --project tsconfig.json server/index.ts",
+  "ext": "ts"
+}
