@@ -37,8 +37,6 @@ app.use(compression({
       return false;
     }
 
-    // console.log((/html/).test(res.getHeader('Content-Type')));
-
     return (/html|text|json|javascript|css|font|svg/).test(res.getHeader('Content-Type'));
   },
   threshold: 2048, // 阀值，当数据超过1kb的时候，可以压缩
