@@ -1,6 +1,17 @@
+/**
+ * favicon
+ * 应用安全 CSP helmet
+ * gizp压缩 compression
+ * 限流 rateLimit
+ * 跨域 cors
+ */
+const path = require('path');
 const express = require('express');
+const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 const app = express();
 
@@ -10,18 +21,41 @@ const dev = process.env.NODE_ENV !== 'production';
 console.log(`Node dev Environment is ${dev}`);
 
 /**
+ * 尽量在其他中间件前使用compression
  * 启用gzip
  */
 app.use(compression({
-  filter: (req, res) => {
+  /*filter: (req, res) => {
     if (req.headers['x-no-compression']) {
       return false;
     }
 
-    return compression.filter(req, res);
+    //return compression.filter(req, res);
+  },*/
+  filter: function(req, res) {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+
+    // console.log((/html/).test(res.getHeader('Content-Type')));
+
+    return (/html|text|json|javascript|css|font|svg/).test(res.getHeader('Content-Type'));
   },
   threshold: 2048, // 阀值，当数据超过1kb的时候，可以压缩
+  level: 9,
 }));
+
+app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')));
+
+app.use(cors());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 限制時間 15 minutes
+  max: 5, // 限制請求數量 limit each IP to 100 requests per windowMs
+  message: 'Too many requests, please try again later!',
+});
+
+app.use(limiter);
 
 /**
  * 静态文件
@@ -32,7 +66,7 @@ app.use(express.static('public'));
 /**
  * 中间件
  */
-//app.use(helmet());
+app.use(helmet());
 
 /**
  * 基本路由
